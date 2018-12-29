@@ -17,13 +17,13 @@ RSpec.describe SidekiqCloudwatch do
       )
     end
 
-    let(:stubbed_cloudwatch_api) do
-      instance_double('Aws::CloudWatch::Metric', put_data: nil)
+    let(:stubbed_cloudwatch_client) do
+      instance_double('Aws::CloudWatch::Client', put_metric_data: nil)
     end
 
     before do
       allow(Sidekiq::Stats).to receive(:new).and_return(stubbed_stats)
-      allow(Aws::CloudWatch::Metric).to receive(:new).and_return(stubbed_cloudwatch_api)
+      allow(Aws::CloudWatch::Client).to receive(:new).and_return(stubbed_cloudwatch_client)
       SidekiqCloudwatch.put_metrics
     end
 
@@ -32,7 +32,7 @@ RSpec.describe SidekiqCloudwatch do
     end
 
     it 'will send metrics to cloudwatch' do
-      expect(stubbed_cloudwatch_api).to have_received(:put_data)
+      expect(stubbed_cloudwatch_client).to have_received(:put_metric_data)
     end
   end
 end

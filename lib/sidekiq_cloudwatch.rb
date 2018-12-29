@@ -42,7 +42,7 @@ module SidekiqCloudwatch
       return [] unless Module.const_defined?('Rails')
       [
         { name: 'RailsEnv', value: Rails.env },
-        { name: 'Application', value: Rails.application.class.to_s.split('::')[0..-2] }
+        { name: 'Application', value: Rails.application.class.to_s.split('::')[0..-2].join(' ') }
       ]
     end
   end
@@ -55,10 +55,10 @@ module SidekiqCloudwatch
     end
 
     def perform
-      Aws::CloudWatch::Metric.new(
-        configuration.namespace,
-        'SidekiqTracking'
-      ).put_data(metric_data: metric_data)
+      Aws::CloudWatch::Client.new.put_metric_data(
+        namespace: configuration.namespace,
+        metric_data: metric_data
+      )
 
       self
     end
@@ -69,7 +69,6 @@ module SidekiqCloudwatch
           {
             metric_name: metric_field.name, # required
             dimensions: configuration.dimensions,
-            timestamp: Time.now,
             value: current_value(metric_field),
             unit: 'Count'
           }
