@@ -26,15 +26,30 @@ RSpec.describe SidekiqCloudwatch do
     before do
       allow(Sidekiq::Stats).to receive(:new).and_return(stubbed_stats)
       allow(Aws::CloudWatch::Client).to receive(:new).and_return(stubbed_cloudwatch_client)
-      SidekiqCloudwatch.put_metrics
     end
 
-    it 'will get stats from Sidekiq' do
-      expect(stubbed_stats).to have_received(:scheduled_size)
+    context 'when calling directly' do
+      before { SidekiqCloudwatch.put_metrics }
+
+      it 'will get stats from Sidekiq' do
+        expect(stubbed_stats).to have_received(:scheduled_size)
+      end
+
+      it 'will send metrics to cloudwatch' do
+        expect(stubbed_cloudwatch_client).to have_received(:put_metric_data)
+      end
     end
 
-    it 'will send metrics to cloudwatch' do
-      expect(stubbed_cloudwatch_client).to have_received(:put_metric_data)
+    describe SidekiqCloudwatch::SidekiqJob do
+      before { described_class.new.perform }
+
+      it 'will get stats from Sidekiq' do
+        expect(stubbed_stats).to have_received(:scheduled_size)
+      end
+
+      it 'will send metrics to cloudwatch' do
+        expect(stubbed_cloudwatch_client).to have_received(:put_metric_data)
+      end
     end
   end
 end

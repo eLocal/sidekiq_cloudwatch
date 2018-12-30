@@ -2,6 +2,7 @@
 
 require 'bundler/setup'
 require 'sidekiq_cloudwatch'
+require 'sidekiq_cloudwatch/sidekiq_job'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
