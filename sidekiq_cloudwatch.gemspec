@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Gem that will send Sidkiq::Stats data to AWS Cloudwatch}
   spec.description   = File.read(File.expand_path('../README.md', __FILE__))
   spec.homepage      = "https://github.com/eLocal/#{spec.name}"
+  spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
