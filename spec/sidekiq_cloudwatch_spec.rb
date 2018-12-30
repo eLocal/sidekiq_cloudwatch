@@ -25,7 +25,7 @@ RSpec.describe SidekiqCloudwatch do
 
     before do
       allow(Sidekiq::Stats).to receive(:new).and_return(stubbed_stats)
-      allow(Aws::CloudWatch::Client).to receive(:new).and_return(stubbed_cloudwatch_client)
+      allow(Aws::CloudWatch::Client).to receive(:new).with(region: 'us-east-1').and_return(stubbed_cloudwatch_client)
     end
 
     context 'when calling directly' do

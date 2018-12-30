@@ -9,7 +9,7 @@ module SidekiqCloudwatch
     end
 
     def perform
-      Aws::CloudWatch::Client.new.put_metric_data(
+      Aws::CloudWatch::Client.new(configuration.aws_client_options).put_metric_data(
         namespace: configuration.namespace,
         metric_data: metric_data
       )

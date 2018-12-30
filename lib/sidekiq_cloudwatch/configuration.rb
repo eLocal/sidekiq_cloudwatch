@@ -2,10 +2,14 @@
 
 module SidekiqCloudwatch
   class Configuration
-    attr_writer :metric_fields, :namespace
+    attr_writer :metric_fields, :namespace, :aws_client_options
 
     def metric_fields
       @metric_fields ||= DEFAULT_METRICS
+    end
+
+    def aws_client_options
+      @aws_client_options ||= { region: 'us-east-1' }
     end
 
     def namespace
