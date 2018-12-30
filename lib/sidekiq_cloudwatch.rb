@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sidekiq_cloudwatch/configuration'
 require 'sidekiq_cloudwatch/metric_field'
 require 'sidekiq_cloudwatch/put_metrics'

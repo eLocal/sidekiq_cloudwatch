@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SidekiqCloudwatch
   class PutMetrics
     attr_reader :configuration

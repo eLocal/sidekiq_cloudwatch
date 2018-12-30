@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SidekiqCloudwatch
   class Configuration
     attr_writer :metric_fields, :namespace
@@ -16,6 +18,7 @@ module SidekiqCloudwatch
 
     def default_dimensions
       return [] unless Module.const_defined?('Rails')
+
       [
         { name: 'RailsEnv', value: Rails.env },
         { name: 'Application', value: Rails.application.class.to_s.split('::')[0..-2].join(' ') }

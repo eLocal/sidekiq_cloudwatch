@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SidekiqCloudwatch
   class MetricField
     attr_reader :name, :unit, :operation
