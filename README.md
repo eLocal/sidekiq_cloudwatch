@@ -2,6 +2,8 @@
 
 Gem for sending Sidekiq stats to cloudwatch
 
+[![Build Status](https://travis-ci.com/eLocal/sidekiq_cloudwatch.svg?branch=master)](https://travis-ci.com/eLocal/sidekiq_cloudwatch)
+
 ## Installation
 
 Add this line to your application's Gemfile:
